@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "2a29748d-d370-4481-a47b-9cd095b8d357",
+		"name": "Mcommerce-partie1 Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calculer la marge des produits",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "Ce service renvoi la liste des produits avec la marge entre prix de vente et le prix d'achat"
+			},
+			"response": []
+		},
+		{
+			"name": "Trier des produits par ordre alphabetique  ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "Cette méthode permet de retourner la liste des produits triée par ordre alphabetique"
+			},
+			"response": []
+		},
+		{
+			"name": "Enregistrer un produit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "Cette méthode permet de tester le retour d'exception lorsque le prix est égale à 0."
+			},
+			"response": []
+		}
+	]
+}
