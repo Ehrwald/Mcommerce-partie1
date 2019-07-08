@@ -2,6 +2,7 @@ package com.ecommerce.microcommerce.web.controller;
 
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.web.exceptions.ProduitGratuitException;
 import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -16,7 +17,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Api( description="API pour es opérations CRUD sur les produits.")
@@ -67,11 +70,14 @@ public class ProductController {
     //ajouter un produit
     @PostMapping(value = "/Produits")
 
-    public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
+    public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) throws ProduitGratuitException {
 
+        if (product.getPrix() <= 0) {
+            throw new ProduitGratuitException("Le prix est inférieur à zéro.");
+        }
         Product productAdded =  productDao.save(product);
 
-        if (productAdded == null)
+        if (productAdded == null )
             return ResponseEntity.noContent().build();
 
         URI location = ServletUriComponentsBuilder
@@ -103,6 +109,18 @@ public class ProductController {
         return productDao.chercherUnProduitCher(400);
     }
 
+    @GetMapping(value = "/AdminProduits")
+    public Map<Product, Integer> calculerMargeProduit(){
+            Iterable<Product> produits = productDao.findAll();
+            Map<Product, Integer> produitsAvecMarge = new HashMap<Product, Integer>();
+        for (Product produit : produits) {
+            produitsAvecMarge.put(produit, produit.getPrix() - produit.getPrixAchat());
+        }
+        return produitsAvecMarge;
+    }
 
+    public List<Product> trierProduitsParOrdreAlphabetique(){
+        return null;
+    }
 
 }
